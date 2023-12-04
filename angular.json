@@ -8,7 +8,6 @@
       "schematics": {
         "@schematics/angular:component": {
           "changeDetection": "OnPush",
-          "viewEncapsulation": "ShadowDom",
           "inlineTemplate": true,
           "inlineStyle": true,
           "style": "scss"
