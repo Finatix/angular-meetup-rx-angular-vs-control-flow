@@ -84,7 +84,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@testing-library/jest-dom"
             ],
             "tsConfig": "tsconfig.spec.json"
           }
