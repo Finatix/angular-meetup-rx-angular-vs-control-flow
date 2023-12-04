@@ -10,7 +10,14 @@
           "changeDetection": "OnPush",
           "inlineTemplate": true,
           "inlineStyle": true,
+          "standalone": true,
           "style": "scss"
+        },
+        "@schematics/angular:pipe": {
+          "standalone": true
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
         }
       },
       "root": "",
