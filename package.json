@@ -9,7 +9,9 @@
     "test": "ng test"
   },
   "jest": {
-    "setupFilesAfterEnv": ["@testing-library/jest-dom"]
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom"
+    ]
   },
   "private": true,
   "dependencies": {
@@ -21,6 +23,8 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
+    "@rx-angular/cdk": "^17.0.0",
+    "@rx-angular/template": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
