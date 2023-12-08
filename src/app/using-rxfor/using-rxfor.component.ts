@@ -1,26 +1,46 @@
 import { RxFor } from '@rx-angular/template/for';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RxIf } from '@rx-angular/template/if';
+import { RxLet } from '@rx-angular/template/let';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
-import { LIST_SIZE } from '../constants';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PrintTimeDiffComponent } from "../print-time-diff/print-time-diff.component";
 import { createList } from '../utils';
+import { ReplaySubject, Subject, merge } from 'rxjs';
+import { first, map, reduce, scan, startWith, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'mee-using-rxfor',
     standalone: true,
     template: `
   <mee-print-time-diff/>
-  <ul class="flex flex-wrap" >
-    <li *rxFor="let item of items; trackBy: 'id'; strategy: 'normal'" class="tile">
+
+  <ul class="flex flex-wrap overflow-auto h-[30vh]" >
+    <li *rxFor="let item of items; trackBy: 'id'; strategy: 'idle'; renderCallback: itemsRendered$" class="tile">
       <strong>{{ item.id }}:</strong> <img [ngSrc]="'https://placehold.co/600x' + item.value" width="600" [height]="item.value" alt=""><mee-print-time-diff/>
     </li>
   </ul>
+  <p *rxLet="timeForRendering$; let timeForRendering; suspense: timeForRenderingSuspense">Time for Rendering: {{ timeForRendering }}ms</p>
+  <ng-template #timeForRenderingSuspense>Time for Rendering: in progress</ng-template>
   <mee-print-time-diff/>
   `,
     styles: ``,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [RxFor, NgOptimizedImage, PrintTimeDiffComponent]
+    imports: [RxIf, RxLet, RxFor, NgOptimizedImage, PrintTimeDiffComponent]
 })
 export class UsingRxforComponent {
   items = createList();
+
+  // this emits whenever rxFor finished rendering changes
+  itemsRendered$ = new Subject<ReturnType<typeof createList>>();
+  initialized$ = new ReplaySubject<number>(1);
+
+  timeForRendering$ = merge(this.initialized$, this.itemsRendered$.pipe(first(), map(() => performance.now()))).pipe(
+    reduce((prev, curr) => curr - prev),
+  );
+
+  constructor() {
+    this.initialized$.next(performance.now());
+    this.initialized$.complete();
+  }
 }

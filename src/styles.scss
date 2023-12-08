@@ -4,5 +4,5 @@
 @tailwind utilities;
 
 .tile {
-  @apply block text-center align-middle p-4 shadow-lg mx-4 my-2 w-20 rounded;
+  @apply block bg-white text-center align-middle p-4 shadow-lg mx-4 my-2 w-20 rounded;
 }
