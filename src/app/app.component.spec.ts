@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { screen, render } from '@testing-library/angular';
 import { AppComponent } from './app.component';
 
+import '@mocks/request-idle-callback';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await render(AppComponent);

@@ -1,6 +1,8 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, ViewEncapsulation} from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {RxStrategyProvider} from "@rx-angular/cdk/render-strategies";
+import {mySlowFunction} from "./my-slow.function";
 
 @Component({
   selector: 'mee-root',
@@ -37,4 +39,45 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'angular-meetup-rx-angular-gegen-control-flow';
+
+  private strategyProvider = inject(RxStrategyProvider);
+
+  constructor() {
+    requestIdleCallback(() => {
+      const result = mySlowFunction();
+      console.log(performance.now(), this.constructor.name, 'idle native/result', result)
+    });
+    setTimeout(() => {
+      const result = mySlowFunction();
+      console.log(performance.now(), this.constructor.name, 'setTimeout native/result', result)
+    });
+    Promise.resolve().then(() => {
+      const result = mySlowFunction();
+      console.log(performance.now(), this.constructor.name, 'Promise native/result', result)
+    });
+    queueMicrotask(() => {
+      const result = mySlowFunction();
+      console.log(performance.now(), this.constructor.name, 'queueMicrotask native/result', result)
+    });
+
+    this.strategyProvider
+      .schedule(() => mySlowFunction(), { strategy: 'idle' })
+      .subscribe(result => console.log(performance.now(), this.constructor.name, 'idle rx/result', result));
+
+    this.strategyProvider
+      .schedule(() => mySlowFunction(), { strategy: 'low' })
+      .subscribe(result => console.log(performance.now(), this.constructor.name, 'low rx/result', result));
+
+    this.strategyProvider
+      .schedule(() => mySlowFunction(), { strategy: 'normal' })
+      .subscribe(result => console.log(performance.now(), this.constructor.name, 'normal rx/result', result));
+
+    this.strategyProvider
+      .schedule(() => mySlowFunction(), { strategy: 'userBlocking' })
+      .subscribe(result => console.log(performance.now(), this.constructor.name, 'userBlocking rx/result', result));
+
+    this.strategyProvider
+      .schedule(() => mySlowFunction(), { strategy: 'immediate' })
+      .subscribe(result => console.log(performance.now(), this.constructor.name, 'immediate rx/result', result));
+  }
 }

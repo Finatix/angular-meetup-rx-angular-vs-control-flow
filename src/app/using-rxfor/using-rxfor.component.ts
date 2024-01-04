@@ -16,11 +16,11 @@ import { first, map, reduce, scan, startWith, tap } from 'rxjs/operators';
   <mee-print-time-diff/>
 
   <ul class="flex flex-wrap overflow-auto h-[30vh]" >
-    <li *rxFor="let item of items; trackBy: 'id'; strategy: 'idle'; renderCallback: itemsRendered$" class="tile">
+    <li *rxFor="let item of items; trackBy: 'id'; renderCallback: itemsRendered$" class="tile">
       <strong>{{ item.id }}:</strong> <img [ngSrc]="'https://placehold.co/600x' + item.value" width="600" [height]="item.value" alt=""><mee-print-time-diff/>
     </li>
   </ul>
-  <p *rxLet="timeForRendering$; let timeForRendering; suspense: timeForRenderingSuspense">Time for Rendering: {{ timeForRendering }}ms</p>
+  <p *rxLet="timeForRendering$; let timeForRendering; suspense: timeForRenderingSuspense; strategy: 'immediate'">Time for Rendering: {{ timeForRendering }}ms</p>
   <ng-template #timeForRenderingSuspense>Time for Rendering: in progress</ng-template>
   <mee-print-time-diff/>
   `,
