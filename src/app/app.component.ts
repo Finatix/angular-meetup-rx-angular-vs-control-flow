@@ -14,10 +14,10 @@ import {mySlowFunction} from "./my-slow.function";
 
     <nav>
       <ul class="flex space-x-4 my-4 items-center align-middle justify-center">
-        <li class="p-2 bg-slate-300 shadow rounded"><a class="text-slate-700 cursor-pointer" [routerLink]="['/', 'ng-for']" routerLinkActive="underline">ng-for</a></li>
-        <li class="p-2 bg-slate-300 shadow rounded"><a class="text-slate-700 cursor-pointer" [routerLink]="['/', 'rx-for']" routerLinkActive="underline">rx-for</a></li>
-        <li class="p-2 bg-slate-300 shadow rounded"><a class="text-slate-700 cursor-pointer" [routerLink]="['/', 'at-for']" routerLinkActive="underline">at-for</a></li>
-        <li class="p-2 bg-slate-300 shadow rounded"><a class="text-slate-700 cursor-pointer" [routerLink]="['/', 'at-for-and-defer']" routerLinkActive="underline">at-for-and-defer</a></li>
+        <li class="p-2 bg-slate-300 shadow rounded"><a class="text-slate-700 hover:font-bold cursor-pointer" [routerLink]="['/', 'ng-for']" routerLinkActive="underline">ng-for</a></li>
+        <li class="p-2 bg-slate-300 shadow rounded"><a class="text-slate-700 hover:font-bold cursor-pointer" [routerLink]="['/', 'rx-for']" routerLinkActive="underline">rx-for</a></li>
+        <li class="p-2 bg-slate-300 shadow rounded"><a class="text-slate-700 hover:font-bold cursor-pointer" [routerLink]="['/', 'at-for']" routerLinkActive="underline">at-for</a></li>
+        <li class="p-2 bg-slate-300 shadow rounded"><a class="text-slate-700 hover:font-bold cursor-pointer" [routerLink]="['/', 'at-for-and-defer']" routerLinkActive="underline">at-for-and-defer</a></li>
       </ul>
     </nav>
 

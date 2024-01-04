@@ -11,7 +11,10 @@
   "jest": {
     "setupFilesAfterEnv": [
       "@testing-library/jest-dom"
-    ]
+    ],
+    "globals": {
+      "__TEST__": true
+    }
   },
   "private": true,
   "dependencies": {

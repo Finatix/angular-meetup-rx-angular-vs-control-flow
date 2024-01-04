@@ -20,7 +20,7 @@ describe('UsingRxforComponent', () => {
         {
           provide: RX_RENDER_STRATEGIES_CONFIG,
           useValue: {
-            // primaryStrategy: 'native',
+            primaryStrategy: 'native',
           }
         }
       ]
@@ -29,11 +29,12 @@ describe('UsingRxforComponent', () => {
 
     fixture = TestBed.createComponent(UsingRxforComponent);
     component = fixture.componentInstance;
+    // component.listRenderStrategy = 'native';
     fixture.detectChanges();
   });
 
   it('should contain some items', async () => {
-    /**
+    /**/
     await firstValueFrom(component.itemsRendered$);
     /**/
     const list = fixture.debugElement.queryAll(By.css('ul > li'));
@@ -52,6 +53,7 @@ describe('UsingRxforComponent', () => {
 
     // const list = await screen.findAllByRole('listitem');
 
+    await firstValueFrom(component.itemsRendered$);
     const list = screen.getAllByRole('listitem');
 
     expect(list).toHaveLength(LIST_SIZE)
