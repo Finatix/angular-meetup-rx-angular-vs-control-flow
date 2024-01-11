@@ -31,7 +31,7 @@ import {RxDefaultStrategyNames, RxStrategyNames} from "@rx-angular/cdk/render-st
     imports: [RxIf, RxLet, RxFor, NgOptimizedImage, PrintTimeDiffComponent]
 })
 export class UsingRxforComponent {
-  @Input() listRenderStrategy: RxDefaultStrategyNames = 'normal';
+  @Input() listRenderStrategy?: RxDefaultStrategyNames = 'normal';
 
   items = createList();
 
