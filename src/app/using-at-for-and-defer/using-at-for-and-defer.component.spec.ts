@@ -21,8 +21,10 @@ describe('UsingAtForAndDeferComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should contain some items', () => {
-    const list = fixture.debugElement.queryAll(By.css('ul > li'));
+  it('should contain some items', async () => {
+    const deferBlocks = await fixture.getDeferBlocks();
+    await Promise.all(deferBlocks.map(defer => defer.render(DeferBlockState.Complete)));
+    const list = fixture.debugElement.queryAll(By.css('ul > li img'));
     expect(list).toHaveLength(LIST_SIZE);
   });
 
